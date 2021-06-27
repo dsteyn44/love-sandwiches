@@ -121,8 +121,8 @@ def get_last_5_entry_sales():
     """
     Remember that the colomn indexs print out from 1 and not 0 like rows
     """
-    #column = sales.col_values(3)
-    #print(column)
+    #  column = sales.col_values(3)
+    #  print(column)
 
     columns = []
     for ind in range(1, 7): 
@@ -131,9 +131,23 @@ def get_last_5_entry_sales():
         # we want the last 5
         columns.append(column[-5:])
    
-   # pprint(columns)
+    # pprint(columns)
     return columns
 
+def calculate_stock_data(data):
+    """
+    Calculate the average stock for each item type, adding 10%
+    """
+    print("Calculating stock data...\n")
+    new_stock_data = []
+
+    for column in data:
+        int_column = [int(num) for num in column]
+        average = sum(int_column) / len(int_column)
+        stock_num = average * 1.1
+        new_stock_data.append(round(stock_num))
+    #print(new_stock_data)
+    return new_stock_data
 
 def main():
     """
@@ -146,9 +160,11 @@ def main():
     new_surplus_data = calculate_surplus_data(sales_data)
     update_worksheet(new_surplus_data, "surplus") 
     """ Updating the calls from the update Worksheet above"""
-    print(new_surplus_data)
+    sales_columns = get_last_5_entry_sales()
+    stock_data = calculate_stock_data(sales_columns)
+    update_worksheet(stock_data, "stock") 
+    #print(stock_data)
+    #print(new_surplus_data)
 
 print("Welcome to love sandwiches automation")
-#main()
-
-sales_columns = get_last_5_entry_sales()
+main()
