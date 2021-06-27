@@ -54,25 +54,25 @@ def validate_data(values):
 
     return True
 
-"""
-def update_sales_worksheet(data):
-    
-    Update sales worksheet, add new row with the list data provided
-    
-    print("Updating sales worksheet...\n")
-    sales_worksheet = SHEET.worksheet("sales")
-    sales_worksheet.append_row(data)
-    print("Sales worksheet updated successfully.\n")
 
-def update_surplus_worksheet(data):
-    
+#def update_sales_worksheet(data):
+    """
+    Update sales worksheet, add new row with the list data provided
+    """
+    #print("Updating sales worksheet...\n")
+    #sales_worksheet = SHEET.worksheet("sales")
+    #sales_worksheet.append_row(data)
+    #print("Sales worksheet updated successfully.\n")
+
+#def update_surplus_worksheet(data):
+    """
     Update surplus worksheet, add new row with the list data provided
-    
-    print("Updating surplus worksheet...\n")
-    surplus_worksheet = SHEET.worksheet("surplus")
-    surplus_worksheet.append_row(data)
-    print("Surplus worksheet updated successfully.\n")
-"""
+    """
+    #print("Updating surplus worksheet...\n")
+    #surplus_worksheet = SHEET.worksheet("surplus")
+    #surplus_worksheet.append_row(data)
+    #print("Surplus worksheet updated successfully.\n")
+
 def update_worksheet(data, worksheet):
     """
     Recieves a list of integers to be inserted into a worksheet
@@ -112,6 +112,29 @@ def calculate_surplus_data(sales_row):
     """
     return surplus_data
 
+def get_last_5_entry_sales():
+    """
+    Collects columns of data from thwe sales worksheet, collecting
+    the last 5 entries fro each sandwich and returns the data as a list of lists
+    """
+    sales = SHEET.worksheet("sales")
+    """
+    Remember that the colomn indexs print out from 1 and not 0 like rows
+    """
+    #column = sales.col_values(3)
+    #print(column)
+
+    columns = []
+    for ind in range(1, 7): 
+        # add range for loop. Range 1-7
+        column = sales.col_values(ind)
+        # we want the last 5
+        columns.append(column[-5:])
+   
+   # pprint(columns)
+    return columns
+
+
 def main():
     """
     Run all program functions
@@ -126,4 +149,6 @@ def main():
     print(new_surplus_data)
 
 print("Welcome to love sandwiches automation")
-main()
+#main()
+
+sales_columns = get_last_5_entry_sales()
